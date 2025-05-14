@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Linkeli</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -49,9 +49,13 @@
                 </nav>
             @endif
         </header>
+        
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-                <h1>Bienvenu à Linkeli</h1>
+                <div>
+                    <h1>Bienvenu à Linkeli</h1>
+                    <img src="https://www.screamingfrog.co.uk/wp-content/uploads/2021/06/302-1024x575.png" alt="linkeli">
+                </div>
             </main>
         </div>
 
