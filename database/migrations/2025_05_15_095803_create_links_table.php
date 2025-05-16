@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('links', function (Blueprint $table) {
-            $table->id();
+            $table->id('link_id');
+            $table->string('source_link');
+            $table->string('shortcut_link')->unique();
+            $table->boolean('password_protected')->default(false);
+            $table->string('password_hash')->nullable();
+            $table->unsignedBigInteger('user_fk');
+            $table->bigInteger('counter')->default(0);
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+            $table->foreign('user_fk')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
