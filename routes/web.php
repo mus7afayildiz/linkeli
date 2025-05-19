@@ -26,6 +26,14 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::put('/links/{link}', [LinkController::class, 'update'])->name('links.update');
 
     Route::get('/generate-qrcode', [QrCodeController::class, 'generate']);
+
+    Route::get('/generate-qrcode', [QrCodeController::class, 'generate']);
+
 });
 
+
+
 require __DIR__.'/auth.php';
+
+Route::get('/{shortcut}', [\App\Http\Controllers\RedirectController::class, 'redirect'])
+->where('shortcut', '[a-zA-Z0-9-_]+');

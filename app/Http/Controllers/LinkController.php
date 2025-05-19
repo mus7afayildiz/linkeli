@@ -7,6 +7,7 @@ use App\Http\Requests\StoreLinkRequest;
 use App\Http\Requests\UpdateLinkRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LinkController extends Controller
 {
@@ -46,10 +47,12 @@ class LinkController extends Controller
      */
     public function store(StoreLinkRequest $request)
     {
+        $shortcut = "http://127.0.0.1:8000/".Link::generateShortcut();
+
         //
         $link = Link::create([
             'source_link' => $request -> lienDeSource,
-            'shortcut_link' => $request -> lienCourte,
+            'shortcut_link' => $shortcut,
             'user_fk' => Auth::id(),
             'counter' => 0
         ]);
@@ -97,5 +100,13 @@ class LinkController extends Controller
         $link->delete();
 
         return redirect()->route('link.index');
+    }
+
+
+    public function redirect(Request $request, $shortcut)
+    {
+        $link = Link::where('shortcut_link', $shortcut)->first();
+         // Redirection
+         return redirect()->to($link->source_link, 302); // HTTP 302 Temporary Redirect
     }
 }
