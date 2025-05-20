@@ -41,7 +41,7 @@
                                     <form action="{{ route('links.destroy', $link->link_id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="px-3 py-1 bg-red-600 text-white text-xs font-medium rounded-lg hover:bg-red-700">SUPPRIMER</a>
+                                        <button type="submit" class="mr-2 px-3 py-1 bg-red-600 text-white text-xs font-medium rounded-lg hover:bg-red-700">SUPPRIMER</a>
                                     </form>
                                 </td>
                             </tr>

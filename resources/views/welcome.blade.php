@@ -52,7 +52,7 @@
         
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-                <div>
+                <div class="justify-items-center">
                     <h1>Bienvenu à Linkeli</h1>
                     <img src="https://www.screamingfrog.co.uk/wp-content/uploads/2021/06/302-1024x575.png" alt="linkeli">
                 </div>

@@ -25,9 +25,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
     Route::put('/links/{link}', [LinkController::class, 'update'])->name('links.update');
 
-    Route::get('/generate-qrcode', [QrCodeController::class, 'generate']);
+    //Route::get('/generate-qrcode', [QrCodeController::class, 'generate']);
 
-    Route::get('/generate-qrcode', [QrCodeController::class, 'generate']);
+
 
 });
 
