@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateLinkRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 
 class LinkController extends Controller
 {
@@ -56,12 +57,28 @@ class LinkController extends Controller
         $shortcut = "$url/".$code;
 
 
+        // Vérifiez si le même raccourci a déjà été utilisé
+        if (Link::where('shortcut_link', $shortcut)->exists()) {
+            return back()->withErrors(['shortcut_link' => 'Ce lien court est déjà utilisé.']);
+        }
+
+        // Cryptage (facultatif)
+        $passwordHash = $request->filled('motDePasse')
+        ? Hash::make($request->input('motDePasse'))
+        : null;
+
+
+        $expiresAt = Carbon::now()->addMonth();
+
         //
         $link = Link::create([
             'source_link' => $request -> lienDeSource,
             'shortcut_link' =>$code,
+            'password_protected' => $request->filled('motDePasse'),
+            'password_hash' => $passwordHash,
             'user_fk' => Auth::id(),
-            'counter' => 0
+            'counter' => 0,
+            'expires_at' => $expiresAt
         ]);
 
         return redirect()->route('link.index');

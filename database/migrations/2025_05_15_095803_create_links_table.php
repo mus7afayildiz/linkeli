@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->id('link_id');
-            $table->string('source_link');
+            $table->text('source_link')->change();
             $table->string('shortcut_link')->unique();
             $table->boolean('password_protected')->default(false);
             $table->string('password_hash')->nullable();
