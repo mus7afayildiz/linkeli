@@ -47,12 +47,19 @@ class LinkController extends Controller
      */
     public function store(StoreLinkRequest $request)
     {
-        $shortcut = "http://127.0.0.1:8000/".Link::generateShortcut();
+        $url = config('app.url');
+        //$code = Link::generateShortcut();
+        
+        $code = $request->filled('lienCourte')
+        ? $request->input('lienCourte')
+        : Link::generateShortcut();
+        $shortcut = "$url/".$code;
+
 
         //
         $link = Link::create([
             'source_link' => $request -> lienDeSource,
-            'shortcut_link' => $shortcut,
+            'shortcut_link' =>$code,
             'user_fk' => Auth::id(),
             'counter' => 0
         ]);
