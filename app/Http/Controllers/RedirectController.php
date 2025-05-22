@@ -26,14 +26,14 @@ class RedirectController extends Controller
         if ($link->password_protected) {
             return view('links.password', compact('link'));
         }
-
+        
         $link->increment('counter');
 
         // Redirection
-        return redirect()->away($link->source_link);// HTTP 302 Temporary Redirect
+        return redirect()->away($link->source_link, 302);// HTTP 302 Temporary Redirect
     }
 
-    public function verifyPassword(Request $request, Link $link)
+    public function verifyPassword(Request $request, $shortcut)
     {
         $link = Link::where('shortcut_link', $shortcut)->first();
 
@@ -47,6 +47,6 @@ class RedirectController extends Controller
 
         $link->increment('counter');
 
-        return redirect()->away($link->source_link);
+        return redirect()->away($link->source_link, 302);
     }
 }

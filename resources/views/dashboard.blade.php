@@ -33,7 +33,7 @@
                             <tr>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ $link->source_link}}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900"><a href="{{ url($link->shortcut_link) }}" target="_blank" rel="noopener noreferrer">{{ url($link->shortcut_link) }}</a></td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{!! QrCode::size(50)->generate($link->shortcut_link) !!}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{!! QrCode::size(50)->generate(url($link->shortcut_link)) !!}</td>
                                 {{-- Protégé --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"> 
                                     <div class="flex flex-col items-center justify-center space-y-1">
@@ -54,24 +54,21 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $link->counter}}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 md:justify-items-center">
-                                    <a href="{{ route('links.edit', $link) }}" class="mr-2 px-3 py-2 bg-yellow-500 text-white text-xs font-medium rounded-lg hover:bg-yellow-600">MODIFIER</a>
-                                    <form action="{{ route('links.destroy', $link->link_id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="my-2 px-3 py-2 bg-red-600 text-white text-xs font-medium rounded-lg hover:bg-red-700" onclick="return confirm('Êtes-vous sûr ?')">SUPPRIMER</a>
-                                    </form>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">   
+                                    <div class="flex flex-col items-start space-y-2">                     
+                                        <a href="{{ route('links.edit', $link) }}" class="inline-block w-24 mr-2 px-3 py-2 bg-yellow-500 text-white text-xs font-medium rounded-lg hover:bg-yellow-600 text-center">MODIFIER</a>
+                                        <form action="{{ route('links.destroy', $link->link_id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                            <button type="submit" class="inline-block w-24 px-3 py-2 bg-red-600 text-white text-xs font-medium rounded-lg hover:bg-red-700 text-center" onclick="return confirm('Êtes-vous sûr ?')">SUPPRIMER</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            
-                <!-- <div class="p-6 text-gray-900">
-                    {{ __("Vous êtes connecté! Bienvenue sur l'application Linkeli !") }}
-                </div> -->
-
+                </div>            
             </div>
         </div>
     </div>
