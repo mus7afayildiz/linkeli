@@ -20,7 +20,7 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-200 dark:bg-gray-700">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lien de Source</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lien de Destination </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lien de Raccourci</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">QRCode</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Protégé</th>
@@ -33,7 +33,14 @@
                             <tr>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ $link->source_link}}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900"><a href="{{ url($link->shortcut_link) }}" target="_blank" rel="noopener noreferrer">{{ url($link->shortcut_link) }}</a></td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{!! QrCode::size(50)->generate(url($link->shortcut_link)) !!}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    @if($link->qrCode)
+                                        <img src="{{ asset($link->qrCode->chemin_du_fichier) }}" alt="QR Code" class="w-12 h-12">
+                                    @else
+                                        <span class="text-xs text-gray-500 italic">QR code non disponible</span>
+                                    @endif
+                                </td>
+                                </td>
                                 {{-- Protégé --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"> 
                                     <div class="flex flex-col items-center justify-center space-y-1">

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use App\Models\QrCode as QrCodeModel;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class LinkController extends Controller
 {
@@ -58,7 +63,7 @@ class LinkController extends Controller
 
 
         // Vérifiez si le même raccourci a déjà été utilisé
-        if (Link::where('shortcut_link', $shortcut)->exists()) {
+        if (Link::where('shortcut_link', $code)->exists()) {
             return back()->withErrors(['shortcut_link' => 'Ce lien court est déjà utilisé.']);
         }
 
@@ -67,9 +72,9 @@ class LinkController extends Controller
         ? Hash::make($request->input('motDePasse'))
         : null;
 
-
         $expiresAt = Carbon::now()->addMonth();
 
+        
         //
         $link = Link::create([
             'source_link' => $request -> lienDeSource,
@@ -79,6 +84,22 @@ class LinkController extends Controller
             'user_fk' => Auth::id(),
             'counter' => 0,
             'expires_at' => $expiresAt
+        ]);
+        
+        //Générer un code QR
+        $qrContent = url($link->shortcut_link);
+        $filename = 'qrcodes/' . Str::uuid() . '.svg';
+        $path = storage_path('app/public/' . $filename);
+
+        $svg = QrCode::format('svg')->size(300)->generate($qrContent);
+        Storage::disk('public')->put($filename, $svg);
+
+
+        // Enregistrer dans la base de données
+        QrCodeModel::create([
+            'link_id' => $link->link_id,
+            'format' => 'svg',
+            'chemin_du_fichier' => 'storage/' . $filename,
         ]);
 
         return redirect()->route('link.index');

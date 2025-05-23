@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <x-slot name="header">
         <h2>Mot de passe requis</h2>
     </x-slot>
@@ -19,4 +19,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-guest-layout>
