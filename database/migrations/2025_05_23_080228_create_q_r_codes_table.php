@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Auteur      : Mustafa Yildiz
+ * Date        : 13.05.2025
+ * Description : C'est le fichier qui crée les tables QRcodes dans la base de données.
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

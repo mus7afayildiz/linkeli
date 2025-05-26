@@ -63,11 +63,11 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $link->counter}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">   
                                     <div class="flex flex-col items-start space-y-2">                     
-                                        <a href="{{ route('links.edit', $link) }}" class="inline-block w-24 mr-2 px-3 py-2 bg-yellow-500 text-white text-xs font-medium rounded-lg hover:bg-yellow-600 text-center">MODIFIER</a>
+                                        <a href="{{ route('links.edit', $link) }}" class="inline-block w-24 mr-2 px-3 py-2 bg-yellow-500 text-white text-xs font-medium rounded-lg hover:bg-yellow-600 text-center" onclick="return confirm('Êtes-vous sûr pour modifier?')">MODIFIER</a>
                                         <form action="{{ route('links.destroy', $link->link_id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                            <button type="submit" class="inline-block w-24 px-3 py-2 bg-red-600 text-white text-xs font-medium rounded-lg hover:bg-red-700 text-center" onclick="return confirm('Êtes-vous sûr ?')">SUPPRIMER</button>
+                                            <button type="submit" class="inline-block w-24 px-3 py-2 bg-red-600 text-white text-xs font-medium rounded-lg hover:bg-red-700 text-center" onclick="return confirm('Êtes-vous sûr pour suprimer ?')">SUPPRIMER</button>
                                         </form>
                                     </div>
                                 </td>

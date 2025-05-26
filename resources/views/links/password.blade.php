@@ -12,6 +12,9 @@
                         <div class="mb-4">
                             <label for="password" class="block font-medium text-sm text-gray-700">Entrez le mot de passe</label>
                             <input type="password" name="password" id="password" required class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100 text-gray-900 ">
+                            @if ($errors->has('password'))
+                                <div class="error">{{ $errors->first('password') }}</div>
+                            @endif
                         </div>
                         <button type="submit" class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition duration-200">Accéder au lien</button>
                     </form>

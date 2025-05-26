@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Auteur      : Mustafa Yildiz
+ * Date        : 13.05.2025
+ * Description : Il s'agit du fichier dans lequel les routes Laravel sont créées.
+ */
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -32,11 +38,11 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
     Route::put('/links/{link}', [LinkController::class, 'update'])->name('links.update');
 
-    Route::post('/{shortcut}/verify', [RedirectController::class, 'verifyPassword'])->where('shortcut', '[a-zA-Z0-9-_]+')->name('links.verifyPassword');
+    Route::post('/{shortcut}/verify', [RedirectController::class, 'verifyPassword'])->where('shortcut', '[a-zA-Z0-9-_.]+')->name('links.verifyPassword');
 });
 
 
 
 require __DIR__.'/auth.php';
 
-Route::get('/{shortcut}', [\App\Http\Controllers\RedirectController::class, 'redirect'])->where('shortcut', '[a-zA-Z0-9-_]+');
+Route::get('/{shortcut}', [\App\Http\Controllers\RedirectController::class, 'redirect'])->where('shortcut', '[a-zA-Z0-9-_.]+');

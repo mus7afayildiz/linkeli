@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Auteur      : Mustafa Yildiz
+ * Date        : 13.05.2025
+ * Description : C'est le fichier qui gère et dirige la page d'accueil.
+ */
 
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;

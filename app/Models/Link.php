@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Auteur      : Mustafa Yildiz
+ * Date        : 13.05.2025
+ * Description : Il s'agit du fichier modèle créé pour les informations de l'objet lien.
+ */
 
 namespace App\Models;
 

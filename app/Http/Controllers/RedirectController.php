@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Auteur      : Mustafa Yildiz
+ * Date        : 13.05.2025
+ * Description : Il s’agit du contrôleur créé pour le lien de routage.
+ */
 
 namespace App\Http\Controllers;
 
@@ -35,14 +41,14 @@ class RedirectController extends Controller
 
     public function verifyPassword(Request $request, $shortcut)
     {
-        $link = Link::where('shortcut_link', $shortcut)->first();
+        $link = Link::where('shortcut_link', $shortcut)->firstOrFail();
 
         if (!$link) {
             abort(404);
         }
 
         if (!Hash::check($request->input('password'), $link->password_hash)) {
-            return back()->withErrors(['password' => 'Mot de passe incorrect.']);
+            return redirect("/{$shortcut}")->back()->withErrors(['password' => 'Mot de passe incorrect.']);
         }
 
         $link->increment('counter');

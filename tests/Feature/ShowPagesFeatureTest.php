@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Auteur      : Mustafa Yildiz
+ * Date        : 13.05.2025
+ * Description : Il s'agit d'un fichier créé pour tester l'affichage des pages.
+ */
 
 namespace Tests\Feature;
 

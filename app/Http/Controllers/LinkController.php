@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Auteur      : Mustafa Yildiz
+ * Date        : 13.05.2025
+ * Description : Il s'agit du contrôleur créé pour l'objet Link.
+ */
 
 namespace App\Http\Controllers;
 
@@ -87,7 +93,7 @@ class LinkController extends Controller
         ]);
         
         //Générer un code QR
-        $qrContent = url($link->shortcut_link);
+        $qrContent = url($link->shortcut_link).".";
         $filename = 'qrcodes/' . Str::uuid() . '.svg';
         $path = storage_path('app/public/' . $filename);
 
