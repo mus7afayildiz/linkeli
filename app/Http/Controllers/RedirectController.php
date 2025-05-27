@@ -51,7 +51,7 @@ class RedirectController extends Controller
         }
 
         if (!Hash::check($request->input('password'), $link->password_hash)) {
-            return redirect("/{$shortcut}")->back()->withErrors(['password' => 'Mot de passe incorrect.']);
+            return redirect()->back()->withErrors(['password' => 'Mot de passe incorrect.'])->withInput();
         }
 
         $link->increment('counter');

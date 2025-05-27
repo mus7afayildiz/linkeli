@@ -95,7 +95,6 @@ class LinkController extends Controller
         //Générer un code QR
         $qrContent = url($link->shortcut_link).".";
         $filename = 'qrcodes/' . Str::uuid() . '.svg';
-        //$path = storage_path('app/'.$filename);
 
         $svg = QrCode::format('svg')->size(300)->generate($qrContent);
         Storage::disk('public')->put($filename, $svg);

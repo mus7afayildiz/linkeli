@@ -38,11 +38,14 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
     Route::put('/links/{link}', [LinkController::class, 'update'])->name('links.update');
 
-    Route::post('/{shortcut}/verify', [RedirectController::class, 'verifyPassword'])->where('shortcut', '[a-zA-Z0-9-_.]+')->name('links.verifyPassword');
 });
 
 
 
 require __DIR__.'/auth.php';
+
+Route::post('/verifier-motdepasse/{shortcut}', [RedirectController::class, 'verifyPassword'])->name('verify.password');
+
+Route::post('/{shortcut}/verify', [RedirectController::class, 'verifyPassword'])->where('shortcut', '[a-zA-Z0-9-_.]+')->name('links.verifyPassword');
 
 Route::get('/{shortcut}', [\App\Http\Controllers\RedirectController::class, 'redirect'])->where('shortcut', '[a-zA-Z0-9-_.]+');
