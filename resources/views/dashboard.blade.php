@@ -36,7 +36,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-900"><a href="{{ url($link->shortcut_link) }}" target="_blank" rel="noopener noreferrer">{{ url($link->shortcut_link) }}</a></td>
                                 <td class="px-6 py-4 text-sm text-gray-900">
                                     @if($link->qrCode)
-                                        <img src="{{ asset($link->qrCode->chemin_du_fichier) }}" alt="QR Code" class="w-12 h-12">
+                                        <img src="{{ asset('storage/' . $link->qrCode->chemin_du_fichier) }}" alt="QR Code" class="w-12 h-12">
                                     @else
                                         <span class="text-xs text-gray-500 italic">QR code non disponible</span>
                                     @endif
