@@ -13,10 +13,10 @@
                 @include('components.search-bar')
                    
                     <a href="{{ route('links.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        + AJOUTER UN NOUVEAU LIEN
+                        + AJOUTER UN NOUVEAU LIENs
                     </a>
                 </div>    
-                <div>
+                <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-200 dark:bg-gray-700">
                             <tr>
@@ -31,7 +31,7 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($links as $link)
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ $link->source_link}}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 break-words max-w-xs">{{ $link->source_link}}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900"><a href="{{ url($link->shortcut_link) }}" target="_blank" rel="noopener noreferrer">{{ url($link->shortcut_link) }}</a></td>
                                 <td class="px-6 py-4 text-sm text-gray-900">
                                     @if($link->qrCode)
