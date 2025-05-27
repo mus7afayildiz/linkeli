@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use App\Models\QrCode as QrCodeModel;
+use App\Models\QRCode as QrCodeModel;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 

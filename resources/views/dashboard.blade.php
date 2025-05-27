@@ -13,7 +13,7 @@
                 @include('components.search-bar')
                    
                     <a href="{{ route('links.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        + AJOUTER UN NOUVEAU LIENs
+                        + AJOUTER UN NOUVEAU LIEN
                     </a>
                 </div>    
                 <div class="overflow-x-auto">
@@ -23,6 +23,7 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lien de Destination </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lien de Raccourci</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">QRCode</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lien de QRCode</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Protégé</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Compteur</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
@@ -38,6 +39,13 @@
                                         <img src="{{ asset($link->qrCode->chemin_du_fichier) }}" alt="QR Code" class="w-12 h-12">
                                     @else
                                         <span class="text-xs text-gray-500 italic">QR code non disponible</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 text-sm text-blue-600 underline break-all max-w-xs">
+                                    @if($link->qrCode)
+                                        <a href="{{ url($link->shortcut_link) . '.' }}" target="_blank">{{ url($link->shortcut_link) . '.' }}</a>
+                                    @else
+                                        <span class="text-xs text-gray-500 italic">Non disponible</span>
                                     @endif
                                 </td>
                                 </td>

@@ -17,7 +17,10 @@ class RedirectController extends Controller
     public function redirect(Request $request, $shortcut)
     {
 
-        $link = Link::where('shortcut_link', $shortcut)->first();
+        $cleanShortcut = rtrim($shortcut, '.');
+
+
+        $link = Link::where('shortcut_link', $cleanShortcut)->first();
 
         if (!$link) {
             abort(404);
