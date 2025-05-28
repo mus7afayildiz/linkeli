@@ -2,7 +2,7 @@
 /**
  * ETML
  * Auteur      : Mustafa Yildiz
- * Date        : 13.05.2025
+ * Date        : 15.05.2025
  * Description : Il s'agit du contrôleur créé pour l'objet Link.
  */
 
@@ -24,14 +24,15 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class LinkController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste de tous les liens de l'utilisateur connecté.
      */
     public function index(Request $request)
     {
-        //
+        // Chercher les liens selon utilisateur connecté
         $links = Link::all();
         $linksQuery = Link::where('user_fk', Auth::id());
 
+         // Si un mot est dans la barre de recherche
         if ($request->has('search') && $request->search != '') {
             $searchTerm = $request->search;
             $linksQuery->where(function($q) use ($searchTerm){
@@ -40,13 +41,14 @@ class LinkController extends Controller
             });
         }
 
+         // Obtenir les liens filtrés
         $links = $linksQuery->get();
 
         return view('dashboard', compact('links'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire pour créer un nouveau lien.
      */
     public function create()
     {
@@ -54,18 +56,22 @@ class LinkController extends Controller
         return view('links.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
+   /**
+     * Enregistre un nouveau lien dans la base de données.
+     * 
+     * @param StoreLinkRequest $request Les données validées du formulaire
+     * @return Redirige vers la liste des liens
      */
     public function store(StoreLinkRequest $request)
     {
+        // Obtenir l'URL de base de l'app
         $url = config('app.url');
-        //$code = Link::generateShortcut();
         
+        // Utiliser le lien court donné ou en générer un
         $code = $request->filled('lienCourte')
-        ? $request->input('lienCourte')
-        : Link::generateShortcut();
-        $shortcut = "$url/".$code;
+            ? $request->input('lienCourte')
+            : Link::generateShortcut();
+            $shortcut = "$url/".$code;
 
 
         // Vérifiez si le même raccourci a déjà été utilisé
@@ -73,15 +79,16 @@ class LinkController extends Controller
             return back()->withErrors(['shortcut_link' => 'Ce lien court est déjà utilisé.']);
         }
 
-        // Cryptage (facultatif)
+        // Créer mot de passe si présent
         $passwordHash = $request->filled('motDePasse')
         ? Hash::make($request->input('motDePasse'))
         : null;
 
+        // La date d’expiration dans 1 mois
         $expiresAt = Carbon::now()->addMonth();
 
         
-        //
+        // Créer un nouveau lien dans la base de donnéée
         $link = Link::create([
             'source_link' => $request -> lienDeSource,
             'shortcut_link' =>$code,
@@ -111,15 +118,18 @@ class LinkController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche un lien (non utilisé ici).
      */
     public function show(Link $link)
     {
-        //
+        //Non implémenté pour le moment
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire de modification d’un lien.
+     * 
+     * @param Link $link Le lien à modifier
+     * @return View Le formulaire d'édition
      */
     public function edit(Link $link)
     {
@@ -128,11 +138,15 @@ class LinkController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour un lien existant.
+     * 
+     * @param UpdateLinkRequest $request Les données validées
+     * @param Link $link Le lien à mettre à jour
+     * @return Redirection vers les liens
      */
     public function update(UpdateLinkRequest $request, Link $link)
     {
-        //
+        // Modifier les infos du lien
         $link->update([
             'source_link' => $request->input('lienDeSource'),
             'shortcut_link' => $request->input('lienCourte'),  
@@ -142,7 +156,10 @@ class LinkController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime un lien.
+     * 
+     * @param Link $link Le lien à supprimer
+     * @return Redirige vers la liste
      */
     public function destroy(Link $link)
     {
@@ -153,10 +170,17 @@ class LinkController extends Controller
     }
 
 
+    /**
+     * Redirige l'utilisateur vers le lien d'origine.
+     * 
+     * @param Request $request La requête HTTP
+     * @param string $shortcut Le code court
+     * @return Redirection vers le lien source
+     */
     public function redirect(Request $request, $shortcut)
     {
         $link = Link::where('shortcut_link', $shortcut)->first();
-         // Redirection
-         return redirect()->to($link->source_link, 302); // HTTP 302 Temporary Redirect
+         // Redirection temporaire
+         return redirect()->to($link->source_link, 302); 
     }
 }

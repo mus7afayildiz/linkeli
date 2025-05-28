@@ -2,7 +2,7 @@
 /**
  * ETML
  * Auteur      : Mustafa Yildiz
- * Date        : 13.05.2025
+ * Date        : 22.05.2025
  * Description : Il s'agit du fichier dans lequel les processus de connexion, d'enregistrement et de vérification des utilisateurs sont effectués.
  */
 
