@@ -2,7 +2,7 @@
  ETML
  Auteur      : Mustafa Yildiz
  Date        : 21.05.2025
- Description : cette section est le pied de page de l'application.
+ Description : Cette section est le pied de page de l'application.
 -->
 
  <!-- Footer -->

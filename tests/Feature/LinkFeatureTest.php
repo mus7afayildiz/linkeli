@@ -3,7 +3,7 @@
  * ETML
  * Auteur      : Mustafa Yildiz
  * Date        : 22.05.2025
- * Description : 
+ * Description : Il s'agit d'un fichier créé pour tester l'affichage des pages.
  */
 
 namespace Tests\Feature;
@@ -14,6 +14,9 @@ use Tests\TestCase;
 use App\Models\Link;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use PHPUnit\Framework\Attributes\Test;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\Notification;
 
 class LinkFeatureTest extends TestCase
 {
@@ -30,6 +33,55 @@ class LinkFeatureTest extends TestCase
 
     use RefreshDatabase;
 
+    /**
+     * Affichage de la page d'accueil
+     */
+    #[Test]
+    public function homepage_displays_successfully(): void
+    {
+        $response = $this->get('/');  
+       // Assurez-vous que HTTP 200 est renvoyé
+        $response->assertStatus(200);
+
+        // Y a-t-il un texte spécifique dans le contenu de la page ? 
+        $response->assertSee('Linkeli'); 
+    }
+
+    #[Test]
+    public function login_page_displays_successfully(): void
+    {
+        $response = $this->get('/login');  
+        // Assurez-vous que HTTP 200 est renvoyé
+        $response->assertStatus(200);
+    }
+
+    #[Test]
+    public function register_page_displays_successfully(): void
+    {
+        $response = $this->get('/register');  
+        // Assurez-vous que HTTP 200 est renvoyé
+        $response->assertStatus(200);
+    }
+
+    #[Test]
+    public function user_receives_verification_email_upon_registration(): void
+    {
+        Notification::fake();
+
+        $response = $this->post('/register', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        // Après l'inscription, l'utilisateur devrait recevoir une notification de vérification
+        $user = User::where('email', 'test@example.com')->first();
+        Notification::assertSentTo($user, VerifyEmail::class);
+
+        // Vous devriez être dirigé vers l'écran d'attente de vérification
+        $response->assertRedirect('/dashboard');
+    }
 
     public function test_link_creation_without_password()
     {
